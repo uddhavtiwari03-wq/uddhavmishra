@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b12">
+<meta name="description" content="Uddhav Mishra — Full-Stack Developer building modern websites, APIs, Telegram bots, and automation systems.">
+<title>Uddhav Mishra | Full-Stack Developer</title>
+<style>
+:root{
+  --bg:#080b12;--panel:#101521;--panel2:#0c111b;
+  --text:#f4f7fb;--muted:#9ba7ba;--line:rgba(255,255,255,.09);
+  --cyan:#71f5e2;--violet:#a99bff;--max:1160px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{
+  margin:0;overflow-x:hidden;
+  background:radial-gradient(ellipse at 80% 0%,rgba(100,85,255,.12),transparent 32%),
+             radial-gradient(ellipse at 5% 22%,rgba(47,222,197,.08),transparent 27%),var(--bg);
+  color:var(--text);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  line-height:1.6;
+}
+a{color:inherit;text-decoration:none}
+button,a{-webkit-tap-highlight-color:transparent}
+.wrap{width:min(var(--max),calc(100% - 40px));margin:auto}
+
+#cursor-glow{
+  position:fixed;left:0;top:0;width:280px;height:280px;
+  pointer-events:none;z-index:0;border-radius:50%;
+  background:radial-gradient(circle,rgba(113,245,226,.11),rgba(169,155,255,.05) 40%,transparent 70%);
+  transform:translate(-50%,-50%);opacity:0;transition:opacity .3s;mix-blend-mode:screen;
+}
+body:hover #cursor-glow{opacity:1}
+main,.nav,.footer{position:relative;z-index:1}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(8,11,18,.82);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
+.navin{height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{font-weight:850;letter-spacing:-.7px;font-size:20px;display:flex;align-items:center;gap:10px}
+.brandmark{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;color:#08100f;background:linear-gradient(135deg,var(--cyan),var(--violet));font-weight:950;transition:transform .3s,box-shadow .3s;box-shadow:0 0 18px rgba(113,245,226,.14)}
+.brand:hover .brandmark{transform:rotate(-9deg) scale(1.08);box-shadow:0 0 28px rgba(113,245,226,.32)}
+.links{display:flex;align-items:center;gap:27px;color:#b4bfd0;font-size:13px}
+.links a:hover{color:var(--cyan)}
+.navcta{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:12px 17px;border-radius:12px;font-weight:750;font-size:13px;background:linear-gradient(120deg,var(--cyan),#a6fff2);color:#07110f;border:0;transition:.2s;cursor:pointer}
+.navcta:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:12px 17px;border-radius:12px;font-weight:750;font-size:13px;border:1px solid var(--line);transition:.2s;cursor:pointer}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.primary{background:linear-gradient(120deg,var(--cyan),#a6fff2);color:#07110f;border:0}
+.secondary{background:rgba(255,255,255,.04)}
+.menu{display:none;background:none;color:white;border:1px solid var(--line);border-radius:10px;padding:8px 11px;font-size:20px;cursor:pointer}
+
+/* HERO */
+.hero{padding:95px 0 82px;display:grid;grid-template-columns:1.12fr .88fr;align-items:center;gap:65px;min-height:620px}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(113,245,226,.22);border-radius:999px;padding:7px 12px;color:#b9fff5;background:rgba(113,245,226,.06);font-size:12px;font-weight:750;letter-spacing:.3px;animation:soft-pulse 3s ease-in-out infinite}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+h1{font-size:clamp(43px,6.2vw,76px);line-height:1.04;letter-spacing:-3.5px;margin:24px 0 20px;font-weight:850}
+h1 .grad,.grad{background:linear-gradient(105deg,var(--cyan),#b2b0ff 78%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.intro{max-width:590px;color:var(--muted);font-size:17px;line-height:1.85}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:29px}
+.mini-proof{display:flex;gap:20px;flex-wrap:wrap;margin-top:34px;color:#aab5c6;font-size:12px}
+.mini-proof span{display:flex;align-items:center;gap:7px}
+.mini-proof b{color:#fff}
+
+/* HERO VISUAL */
+.visual{position:relative;min-height:430px;display:grid;place-items:center}
+.orbit{position:absolute;width:355px;height:355px;border:1px solid rgba(169,155,255,.23);border-radius:50%;animation:spin 24s linear infinite;filter:drop-shadow(0 0 8px rgba(169,155,255,.08))}
+.orbit:before,.orbit:after{content:"";position:absolute;border:1px solid rgba(113,245,226,.14);border-radius:50%;inset:26px}
+.orbit:after{inset:57px}
+.orb-dot{position:absolute;top:40px;right:42px;width:12px;height:12px;border-radius:50%;background:var(--cyan);box-shadow:0 0 22px var(--cyan)}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* ── FLAME CARD ── */
+.flame-card-wrap{position:relative;width:min(100%,340px);transform:rotate(-2deg);transform-style:preserve-3d;will-change:transform;transition:transform .08s linear}
+.flame-canvas{position:absolute;inset:0;width:100%;height:100%;border-radius:25px;display:block;pointer-events:none}
+.profile-card{position:relative;width:100%;padding:26px;border:1px solid rgba(255,255,255,.13);border-radius:25px;background:transparent;box-shadow:0 30px 90px rgba(0,0,0,.4);z-index:1;overflow:hidden}
+.cardtop{display:flex;align-items:center;justify-content:space-between;color:#94a2b7;font-size:11px}
+.windowdots{display:flex;gap:5px}
+.windowdots i{width:6px;height:6px;border-radius:50%;background:#586276}
+.avatar{width:82px;height:82px;border-radius:24px;margin:28px 0 15px;display:grid;place-items:center;font-size:32px;font-weight:900;color:#09110f;background:linear-gradient(135deg,var(--cyan),var(--violet));box-shadow:0 12px 35px rgba(113,245,226,.15)}
+.profile-card h3{font-size:23px;margin:0}
+.profile-card p{margin:3px 0 18px;color:var(--muted);font-size:13px}
+.tags{display:flex;gap:7px;flex-wrap:wrap}
+.tag{font-size:10px;padding:6px 9px;border-radius:8px;color:#d2d8e5;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.06)}
+.codebox{margin-top:22px;background:rgba(8,13,21,.75);border:1px solid var(--line);padding:13px;border-radius:13px;font:11px/1.9 ui-monospace,monospace;color:#9ba9bd}
+.codebox .green{color:var(--cyan)}
+.float{position:absolute;padding:12px 15px;border-radius:14px;background:#131a28;border:1px solid var(--line);box-shadow:0 12px 40px #0005;font-size:12px}
+.float b{display:block;font-size:14px}
+.float.one{top:48px;right:-3px}
+.float.two{bottom:45px;left:-9px}
+
+/* SECTIONS */
+section{padding:82px 0}
+.section-head{max-width:650px;margin-bottom:38px}
+.kicker{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--cyan);font-weight:850}
+.section-head h2{font-size:clamp(30px,4vw,45px);line-height:1.15;letter-spacing:-1.6px;margin:10px 0 12px}
+.section-head p{color:var(--muted);margin:0}
+
+/* SERVICE CARDS */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.service,.project,.review{border:1px solid var(--line);background:linear-gradient(145deg,rgba(18,24,37,.92),rgba(12,16,26,.8));border-radius:19px;padding:24px;transition:.25s;position:relative;overflow:hidden}
+.service:hover,.project:hover,.review:hover{transform:translateY(-5px);border-color:rgba(113,245,226,.35);box-shadow:0 18px 44px rgba(0,0,0,.28)}
+.service:after,.project:after,.review:after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;background:linear-gradient(115deg,transparent 20%,rgba(255,255,255,.045) 45%,transparent 65%);transition:opacity .25s}
+.service:hover:after,.project:hover:after,.review:hover:after{opacity:1}
+.iconbox{width:44px;height:44px;border-radius:13px;background:rgba(113,245,226,.09);border:1px solid rgba(113,245,226,.15);display:grid;place-items:center;color:var(--cyan);font-size:20px;margin-bottom:19px}
+.service h3,.project h3{margin:0 0 9px;font-size:17px}
+.service p,.project p,.review p{margin:0;color:var(--muted);font-size:13px;line-height:1.8}
+.service .smalltag{display:inline-block;margin-top:17px;color:#a5b1c4;font-size:11px}
+
+/* PROJECT CARDS */
+.projects{grid-template-columns:repeat(2,1fr)}
+.project{padding:0;overflow:hidden}
+.project-art{height:190px;padding:20px;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 0%,rgba(113,245,226,.15),transparent 60%),#0b111c;border-bottom:1px solid var(--line)}
+.mock{width:88%;border:1px solid #384255;background:#101827;border-radius:12px;overflow:hidden;box-shadow:0 15px 30px #0005}
+.mockbar{height:20px;border-bottom:1px solid #2b3546;display:flex;gap:4px;align-items:center;padding:0 9px}
+.mockbar i{width:5px;height:5px;background:#566176;border-radius:50%}
+.mockbody{padding:15px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mocktile{height:43px;border-radius:7px;background:linear-gradient(120deg,#203b43,#1a2638);border:1px solid #344655}
+.mocktile:nth-child(2){background:linear-gradient(120deg,#3c315c,#1a2638)}
+.mockline{height:6px;border-radius:5px;background:#354155;margin-top:8px;width:80%}
+.project-content{padding:22px}
+.project-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;color:var(--cyan);font-size:10px;font-weight:800;letter-spacing:1px}
+.project-content h3{font-size:19px}
+.project-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px}
+.project-tags span{font-size:10px;color:#bac5d5;padding:5px 8px;background:#ffffff08;border-radius:7px}
+
+/* ── PRICING ── */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.price-card{
+  position:relative;overflow:hidden;
+  border:1px solid rgba(82,39,255,.35);border-radius:24px;padding:32px 28px;
+  background:#050608;
+  transition:transform .3s,box-shadow .3s,border-color .3s;
+  transform-style:preserve-3d;will-change:transform;
+}
+.price-card:hover{box-shadow:0 24px 70px rgba(82,39,255,.28)}
+.price-card.popular{border-color:rgba(113,245,226,.45);box-shadow:0 0 0 1px rgba(113,245,226,.12)}
+.price-card.popular:hover{box-shadow:0 24px 70px rgba(113,245,226,.22)}
+.price-flame{position:absolute;inset:0;width:100%;height:100%;border-radius:24px;display:block;pointer-events:none;z-index:0;}
+.pop-badge{position:absolute;top:18px;right:18px;background:linear-gradient(120deg,var(--cyan),#a6fff2);color:#07110f;font-size:10px;font-weight:900;padding:4px 11px;border-radius:999px;letter-spacing:.5px}
+.price-tier{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--cyan);font-weight:800;margin-bottom:8px}
+.price-card h3{font-size:20px;font-weight:800;margin:0 0 10px;letter-spacing:-.4px}
+.price-desc{font-size:13px;color:var(--muted);margin-bottom:22px;line-height:1.7}
+.price-amount{display:flex;align-items:baseline;gap:4px;margin-bottom:5px}
+.price-amount .currency{font-size:20px;font-weight:700;color:var(--cyan)}
+.price-amount .amount{font-size:44px;font-weight:900;letter-spacing:-2px;color:#fff;line-height:1}
+.price-amount .unit{font-size:12px;color:var(--muted)}
+.price-note{font-size:11px;color:var(--muted);margin-bottom:24px}
+.price-divider{height:1px;background:var(--line);margin:20px 0}
+.price-features{list-style:none;padding:0;margin:0 0 28px;display:flex;flex-direction:column;gap:10px}
+.price-features li{font-size:13px;color:#d0d8e8;display:flex;align-items:flex-start;gap:9px;line-height:1.5}
+.price-features li:before{content:"✓";color:var(--cyan);font-weight:800;font-size:12px;margin-top:1px;flex-shrink:0}
+.price-cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;border-radius:13px;font-size:13px;font-weight:800;border:1px solid rgba(113,245,226,.3);background:rgba(113,245,226,.07);color:var(--cyan);cursor:pointer;transition:.2s;text-decoration:none}
+.price-card.popular .price-cta{background:linear-gradient(120deg,var(--cyan),#a6fff2);color:#07110f;border:0}
+.price-cta:hover{transform:translateY(-2px);filter:brightness(1.08)}
+
+/* ABOUT */
+.aboutgrid{display:grid;grid-template-columns:.8fr 1.2fr;gap:22px}
+.aboutbox{padding:28px;border:1px solid var(--line);border-radius:20px;background:var(--panel2)}
+.aboutbox h3{font-size:22px;letter-spacing:-.6px;margin:0 0 12px}
+.aboutbox p{font-size:14px;color:var(--muted);line-height:1.9}
+.statrow{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:24px}
+.stat{padding:14px;border-radius:12px;background:#ffffff05;border:1px solid var(--line)}
+.stat strong{display:block;font-size:22px;color:var(--cyan)}
+.stat span{font-size:11px;color:var(--muted)}
+.skillgrid{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.skill{padding:10px 13px;border-radius:10px;border:1px solid var(--line);background:#ffffff05;font-size:12px;color:#dce4f0}
+.skill em{font-style:normal;color:var(--cyan);margin-right:6px}
+
+/* REVIEWS */
+.reviews{grid-template-columns:repeat(3,1fr)}
+.stars{color:#ffd479;letter-spacing:3px;font-size:13px;margin-bottom:14px}
+.reviewhead{display:flex;align-items:center;gap:11px;margin-bottom:14px}
+.reviewavatar{width:38px;height:38px;display:grid;place-items:center;border-radius:50%;background:linear-gradient(135deg,#294c52,#4a3d6b);font-size:12px;font-weight:800}
+.reviewhead strong{display:block;font-size:12px}
+.reviewhead small{display:block;font-size:10px;color:var(--muted)}
+
+/* CONTACT */
+.contact{padding-bottom:100px}
+.contactbox{padding:clamp(28px,5vw,54px);border:1px solid rgba(113,245,226,.2);border-radius:26px;background:radial-gradient(ellipse at 100% 0%,rgba(169,155,255,.14),transparent 38%),linear-gradient(140deg,#111c28,#0c111b);display:flex;align-items:center;justify-content:space-between;gap:25px}
+.contactbox h2{font-size:clamp(28px,4vw,43px);letter-spacing:-1.5px;line-height:1.15;margin:10px 0}
+.contactbox p{color:var(--muted);max-width:530px;font-size:14px}
+.contactactions{display:flex;flex-direction:column;gap:10px;min-width:210px}
+.channel-btn{display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.04);font-size:13px;font-weight:700;color:var(--text);transition:.2s}
+.channel-btn:hover{transform:translateY(-2px);border-color:rgba(113,245,226,.35);background:rgba(113,245,226,.07)}
+.channel-btn .ch-icon{font-size:18px;width:32px;text-align:center}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--line);padding:24px 0;color:#8996a9;font-size:11px}
+.footerin{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.footer a:hover{color:var(--cyan)}
+
+/* FADE */
+.fade{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}
+.fade.show{opacity:1;transform:translateY(0)}
+
+/* RIPPLE */
+.ripple{position:absolute;border-radius:50%;pointer-events:none;width:12px;height:12px;background:rgba(113,245,226,.36);transform:translate(-50%,-50%) scale(0);animation:ripple-out .65s ease-out forwards;z-index:4}
+@keyframes ripple-out{to{transform:translate(-50%,-50%) scale(18);opacity:0}}
+@keyframes soft-pulse{0%,100%{box-shadow:0 0 0 rgba(113,245,226,0)}50%{box-shadow:0 0 24px rgba(113,245,226,.09)}}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;gap:20px;padding-top:70px}
+  .visual{min-height:390px}
+  .grid,.reviews{grid-template-columns:repeat(2,1fr)}
+  .projects{grid-template-columns:1fr}
+  .pricing-grid{grid-template-columns:1fr}
+  .aboutgrid{grid-template-columns:1fr}
+  .links{gap:15px}
+  .contactbox{align-items:flex-start;flex-direction:column}
+  .contactactions{flex-direction:row;flex-wrap:wrap}
+}
+@media(max-width:600px){
+  .wrap{width:min(var(--max),calc(100% - 28px))}
+  .navin{height:66px}
+  .menu{display:block}
+  .links{display:none;position:absolute;top:65px;left:0;right:0;background:#0c111b;padding:18px 22px 22px;border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start}
+  .links.open{display:flex}
+  .navcta{padding:10px 12px;font-size:11px}
+  .brand{font-size:17px}
+  .hero{padding:55px 0 35px;min-height:unset}
+  h1{letter-spacing:-2.2px;font-size:clamp(42px,12vw,60px)}
+  .intro{font-size:15px}
+  .visual{min-height:370px;transform:scale(.93);margin:0 -12px}
+  .orbit{width:310px;height:310px}
+  .float.one{right:0}.float.two{left:0}
+  section{padding:60px 0}
+  .grid,.reviews{grid-template-columns:1fr}
+  .project-art{height:165px}
+  .section-head h2{letter-spacing:-1px}
+  .service,.review{padding:21px}
+  .mini-proof{gap:12px}
+  .contactbox{padding:27px 21px}
+  .footerin{flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}.fade{opacity:1;transform:none}#cursor-glow{display:none}}
+@media(pointer:coarse){#cursor-glow{display:none}.service:active,.project:active,.review:active,.price-card:active{transform:scale(.985)}}
+</style>
+</head>
+<body>
+<div id="cursor-glow" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="wrap navin">
+    <a class="brand" href="#home"><span class="brandmark">U</span> uddhav<span class="grad">.dev</span></a>
+    <nav class="links" id="navlinks">
+      <a href="#services">Services</a>
+      <a href="#work">Projects</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#about">About</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="navcta" href="#contact">Let's talk ↗</a>
+    <button class="menu" id="menu" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section class="wrap hero" id="home">
+  <div class="hero-copy fade">
+    <div class="eyebrow"><span class="dot"></span> AVAILABLE FOR SELECT PROJECTS</div>
+    <h1>Building digital<br>things that <span class="grad">work.</span></h1>
+    <p class="intro">Hey, I'm <strong>Uddhav Mishra</strong> — a Full-Stack Developer who turns ideas into polished websites, powerful backend systems, Telegram bots, and smart automation.</p>
+    <div class="actions">
+      <a class="btn primary" href="#work">Explore my work ↘</a>
+      <a class="btn secondary" href="#contact">Let's build something ↗</a>
+    </div>
+    <div class="mini-proof">
+      <span><b>✦</b> Full-stack web apps</span>
+      <span><b>⌘</b> Bots & automation</span>
+      <span><b>↗</b> API integrations</span>
+    </div>
+  </div>
+  <div class="visual fade">
+    <div class="orbit"><span class="orb-dot"></span></div>
+    <div class="flame-card-wrap" id="flame-card-wrap">
+      <canvas class="flame-canvas" id="flame-canvas" aria-hidden="true"></canvas>
+      <div class="profile-card" id="profile-card">
+        <div class="cardtop"><span>DEVELOPER PROFILE</span><span class="windowdots"><i></i><i></i><i></i></span></div>
+        <div class="avatar">UM</div>
+        <h3>Uddhav Mishra</h3>
+        <p>Full-Stack Developer · Automation Builder</p>
+        <div class="tags">
+          <span class="tag">React</span><span class="tag">Node.js</span>
+          <span class="tag">MongoDB</span><span class="tag">Java</span>
+          <span class="tag">Telegram Bots</span>
+        </div>
+        <div class="codebox">
+          <span class="green">const</span> developer = {<br>
+          &nbsp; focus: <span class="green">'building useful things'</span>,<br>
+          &nbsp; mindset: <span class="green">'learn · build · improve'</span><br>
+          };
+        </div>
+      </div>
+    </div>
+    <div class="float one"><b>⚡ End-to-end</b><span style="color:#9ba7ba">From UI to backend</span></div>
+    <div class="float two"><b>◈ Automation</b><span style="color:#9ba7ba">Less manual work</span></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="section-head fade">
+      <span class="kicker">WHAT I DO</span>
+      <h2>Ideas in. <span class="grad">Working products out.</span></h2>
+      <p>Practical development for businesses, creators, and teams that need reliable digital solutions.</p>
+    </div>
+    <div class="grid">
+      <article class="service fade"><div class="iconbox">⌘</div><h3>Full-Stack Websites</h3><p>Responsive, modern websites and web applications with clean interfaces, backend logic, and database integration.</p><span class="smalltag">React · Node.js · MongoDB</span></article>
+      <article class="service fade"><div class="iconbox">✳</div><h3>Telegram Bot Development</h3><p>Custom bots for workflows, user management, notifications, support, and API-powered features.</p><span class="smalltag">Bot flows · APIs · Admin tools</span></article>
+      <article class="service fade"><div class="iconbox">↯</div><h3>WhatsApp Automation</h3><p>Streamline repetitive customer communication and connect messaging workflows with your systems.</p><span class="smalltag">Workflow design · Integrations</span></article>
+      <article class="service fade"><div class="iconbox">⌁</div><h3>API & Backend Systems</h3><p>Build and connect REST APIs, authentication, database models, and server-side business logic.</p><span class="smalltag">REST APIs · Auth · Databases</span></article>
+      <article class="service fade"><div class="iconbox">◉</div><h3>Automation & Integrations</h3><p>Connect services, automate repetitive steps, and create clear workflows that save time.</p><span class="smalltag">Webhooks · Notifications</span></article>
+      <article class="service fade"><div class="iconbox">◇</div><h3>Dashboard & Admin Panels</h3><p>Useful dashboards to manage users, products, activity, and business operations from one place.</p><span class="smalltag">Analytics · CRUD · Access control</span></article>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="work">
+  <div class="wrap">
+    <div class="section-head fade">
+      <span class="kicker">SELECTED WORK</span>
+      <h2>Projects built around <span class="grad">real problems.</span></h2>
+      <p>Systems I've built — from frontend to backend, bots, payment flows, and automation.</p>
+    </div>
+    <div class="grid projects">
+      <article class="project fade">
+        <div class="project-art"><div class="mock"><div class="mockbar"><i></i><i></i><i></i></div><div class="mockbody"><div><div class="mockline" style="width:48%;background:#70e8d4"></div><div class="mockline"></div><div class="mockline" style="width:63%"></div></div><div class="mocktile"></div><div class="mocktile"></div><div class="mocktile"></div></div></div></div>
+        <div class="project-content">
+          <div class="project-meta"><span>WEB APPLICATION + BOT</span><span>01 / 04</span></div>
+          <h3>CheapOTP — OTP & Session Store</h3>
+          <p>Full-stack OTP & Telegram session selling platform with bot, auto-payment via Gmail (FamPay/UPI), user dashboard, admin panel, and reseller API.</p>
+          <div class="project-tags"><span>React</span><span>Node.js</span><span>SQLite</span><span>Telegram Bot</span><span>Payment Automation</span></div>
+        </div>
+      </article>
+      <article class="project fade">
+        <div class="project-art"><div class="mock"><div class="mockbar"><i></i><i></i><i></i></div><div class="mockbody"><div class="mocktile" style="height:78px;background:linear-gradient(135deg,#234f4d,#17283a)"></div><div><div class="mockline" style="background:#9b91ff"></div><div class="mockline"></div><div class="mockline" style="width:60%"></div></div><div class="mocktile"></div><div class="mocktile" style="background:linear-gradient(120deg,#40375f,#1a2638)"></div></div></div></div>
+        <div class="project-content">
+          <div class="project-meta"><span>BOT AUTOMATION</span><span>02 / 04</span></div>
+          <h3>Telegram Workflow Bot</h3>
+          <p>Conversational bot for guided user flows, automated OTP delivery, payment verification, broadcast messaging, and admin management.</p>
+          <div class="project-tags"><span>Telegram Bot API</span><span>Python</span><span>Node.js</span><span>Database</span></div>
+        </div>
+      </article>
+      <article class="project fade">
+        <div class="project-art"><div class="mock"><div class="mockbar"><i></i><i></i><i></i></div><div class="mockbody"><div><div class="mockline" style="background:#70e8d4"></div><div class="mockline"></div><div class="mockline"></div></div><div class="mocktile" style="height:75px"></div><div class="mocktile"></div><div class="mocktile"></div></div></div></div>
+        <div class="project-content">
+          <div class="project-meta"><span>API INTEGRATION</span><span>03 / 04</span></div>
+          <h3>Auto-Payment Verification</h3>
+          <p>Gmail-based UPI payment poller that auto-detects incoming payments, matches them to pending deposits, and instantly credits user balances.</p>
+          <div class="project-tags"><span>Node.js</span><span>Gmail API</span><span>UPI</span><span>Webhooks</span></div>
+        </div>
+      </article>
+      <article class="project fade">
+        <div class="project-art"><div class="mock"><div class="mockbar"><i></i><i></i><i></i></div><div class="mockbody"><div class="mocktile" style="height:75px;background:linear-gradient(120deg,#493b68,#1a2638)"></div><div><div class="mockline" style="background:#9b91ff"></div><div class="mockline"></div><div class="mockline"></div></div><div class="mocktile"></div><div class="mocktile"></div></div></div></div>
+        <div class="project-content">
+          <div class="project-meta"><span>BUSINESS AUTOMATION</span><span>04 / 04</span></div>
+          <h3>Business Management Dashboard</h3>
+          <p>Central admin panel to manage products, users, orders, deposits, and analytics with real-time SSE updates and role-based access control.</p>
+          <div class="project-tags"><span>React</span><span>REST API</span><span>SSE</span><span>Auth</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="section-head fade">
+      <span class="kicker">PRICING</span>
+      <h2>Transparent pricing. <span class="grad">Zero surprises.</span></h2>
+      <p>Fixed project rates — you know exactly what you're getting before we start.</p>
+    </div>
+    <div class="pricing-grid">
+
+      <!-- ₹6,000 Basic -->
+      <div class="price-card fade" data-flame-color="#5227FF">
+        <canvas class="price-flame" aria-hidden="true"></canvas>
+        <div style="position:relative;z-index:1">
+        <div class="price-tier">Basic</div>
+        <h3>Starter Website</h3>
+        <p class="price-desc">Clean landing page or portfolio — fast to ship, looks professional.</p>
+        <div class="price-amount">
+          <span class="currency">₹</span>
+          <span class="amount">6,000</span>
+          <span class="unit">/ project</span>
+        </div>
+        <p class="price-note">One-time · Delivered in 3–5 days</p>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Single-page responsive website</li>
+          <li>Mobile-first design</li>
+          <li>Contact form integration</li>
+          <li>Basic SEO setup</li>
+          <li>Source code included</li>
+        </ul>
+        <a class="price-cta" href="https://wa.me/917499749945?text=Hi%20Uddhav%2C%20I%27m%20interested%20in%20the%20Starter%20plan%20%E2%82%B96%2C000" target="_blank" rel="noopener">
+          Get Started ↗
+        </a>
+        </div>
+      </div>
+
+      <!-- ₹16,000 Professional — POPULAR -->
+      <div class="price-card popular fade" data-flame-color="#71f5e2">
+        <canvas class="price-flame" aria-hidden="true"></canvas>
+        <div style="position:relative;z-index:1">
+        <div class="pop-badge">⭐ MOST POPULAR</div>
+        <div class="price-tier">Professional</div>
+        <h3>Full-Stack Web App</h3>
+        <p class="price-desc">Multi-page app with backend, database, and admin panel — the full package.</p>
+        <div class="price-amount">
+          <span class="currency">₹</span>
+          <span class="amount">16,000</span>
+          <span class="unit">/ project</span>
+        </div>
+        <p class="price-note">One-time · Delivered in 7–12 days</p>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Multi-page responsive website</li>
+          <li>Node.js backend + database</li>
+          <li>User authentication system</li>
+          <li>Admin panel & dashboard</li>
+          <li>REST API integration</li>
+          <li>VPS deployment</li>
+          <li>1 month free support</li>
+        </ul>
+        <a class="price-cta" href="https://wa.me/917499749945?text=Hi%20Uddhav%2C%20I%27m%20interested%20in%20the%20Professional%20plan%20%E2%82%B916%2C000" target="_blank" rel="noopener">
+          Get Started ↗
+        </a>
+        </div>
+      </div>
+
+      <!-- ₹32,000 Advanced -->
+      <div class="price-card fade" data-flame-color="#5227FF">
+        <canvas class="price-flame" aria-hidden="true"></canvas>
+        <div style="position:relative;z-index:1">
+        <div class="price-tier">Advanced</div>
+        <h3>Full System Build</h3>
+        <p class="price-desc">Complete system — website, bot, payments, and automation all in one.</p>
+        <div class="price-amount">
+          <span class="currency">₹</span>
+          <span class="amount">32,000</span>
+          <span class="unit">/ project</span>
+        </div>
+        <p class="price-note">One-time · Delivered in 14–21 days</p>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Everything in Professional</li>
+          <li>Telegram bot (full features)</li>
+          <li>WhatsApp / payment automation</li>
+          <li>Gmail / API integrations</li>
+          <li>Reseller or public API</li>
+          <li>3 months free support</li>
+          <li>Full source code handover</li>
+        </ul>
+        <a class="price-cta" href="https://wa.me/917499749945?text=Hi%20Uddhav%2C%20I%27m%20interested%20in%20the%20Advanced%20plan%20%E2%82%B932%2C000" target="_blank" rel="noopener">
+          Get Started ↗
+        </a>
+        </div>
+      </div>
+
+    </div>
+    <p style="text-align:center;margin-top:26px;color:var(--muted);font-size:13px">
+      Have something custom? <a href="#contact" style="color:var(--cyan);font-weight:700">Let's talk →</a>
+    </p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="section-head fade">
+      <span class="kicker">A LITTLE ABOUT ME</span>
+      <h2>Curious mind. <span class="grad">Builder mindset.</span></h2>
+      <p>I enjoy figuring out how things work, solving practical problems, and improving a product one detail at a time.</p>
+    </div>
+    <div class="aboutgrid">
+      <div class="aboutbox fade">
+        <h3>How I approach projects</h3>
+        <p>I focus on understanding the goal first, keeping the user experience simple, and building the backend logic needed to make the product genuinely useful.</p>
+        <p>From an idea to the frontend, API, database, and deployment plan — I enjoy connecting all the pieces.</p>
+        <div class="statrow">
+          <div class="stat"><strong>01</strong><span>Understand the goal</span></div>
+          <div class="stat"><strong>02</strong><span>Build & iterate</span></div>
+          <div class="stat"><strong>03</strong><span>Test the details</span></div>
+          <div class="stat"><strong>04</strong><span>Ship thoughtfully</span></div>
+        </div>
+      </div>
+      <div class="aboutbox fade">
+        <h3>Tools in my toolkit</h3>
+        <p>My current development stack and areas I work with.</p>
+        <div class="skillgrid">
+          <span class="skill"><em>✦</em>HTML & CSS</span><span class="skill"><em>✦</em>JavaScript</span>
+          <span class="skill"><em>✦</em>React</span><span class="skill"><em>✦</em>Node.js</span>
+          <span class="skill"><em>✦</em>Java</span><span class="skill"><em>✦</em>MongoDB</span>
+          <span class="skill"><em>✦</em>REST APIs</span><span class="skill"><em>✦</em>Telegram Bots</span>
+          <span class="skill"><em>✦</em>WhatsApp Automation</span><span class="skill"><em>✦</em>Git & GitHub</span>
+          <span class="skill"><em>✦</em>Responsive UI</span><span class="skill"><em>✦</em>Webhooks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="section-head fade">
+      <span class="kicker">KIND WORDS</span>
+      <h2>Trust is built <span class="grad">project by project.</span></h2>
+      <p>What clients have said about working together.</p>
+    </div>
+    <div class="grid reviews">
+      <article class="review fade">
+        <div class="stars">★★★★★</div>
+        <div class="reviewhead"><div class="reviewavatar">AR</div><div><strong>Arjun R.</strong><small>Website development</small></div></div>
+        <p>"Uddhav delivered a clean, fast website exactly as discussed. Communication was smooth and he handled everything from design to deployment."</p>
+      </article>
+      <article class="review fade">
+        <div class="stars">★★★★★</div>
+        <div class="reviewhead"><div class="reviewavatar">SM</div><div><strong>Sahil M.</strong><small>Telegram bot project</small></div></div>
+        <p>"The bot he built works perfectly — automated workflows, payment integration, admin tools. Saved us hours of manual work every day."</p>
+      </article>
+      <article class="review fade">
+        <div class="stars">★★★★★</div>
+        <div class="reviewhead"><div class="reviewavatar">PK</div><div><strong>Priya K.</strong><small>API & automation</small></div></div>
+        <p>"Very reliable developer. Built a complete backend system with payment automation and it's been running without issues for months."</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="contactbox fade">
+      <div>
+        <span class="kicker">HAVE A PROJECT IN MIND?</span>
+        <h2>Let's make it <span class="grad">happen.</span></h2>
+        <p>Need a website, a Telegram bot, a backend API, or an automation workflow? Tell me what you're trying to build and let's discuss the next step.</p>
+      </div>
+      <div class="contactactions">
+        <a class="channel-btn" href="https://wa.me/917499749945" target="_blank" rel="noopener">
+          <span class="ch-icon">📱</span>
+          <div><strong>WhatsApp</strong><br><small style="color:var(--muted);font-size:11px">+91 74997 49945</small></div>
+        </a>
+        <a class="channel-btn" href="https://t.me/uddhavmishra" target="_blank" rel="noopener">
+          <span class="ch-icon">✈️</span>
+          <div><strong>Telegram</strong><br><small style="color:var(--muted);font-size:11px">@uddhavmishra</small></div>
+        </a>
+        <a class="channel-btn" href="mailto:uddhavthakur2411@gmail.com">
+          <span class="ch-icon">✉️</span>
+          <div><strong>Gmail</strong><br><small style="color:var(--muted);font-size:11px">uddhavthakur2411@gmail.com</small></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footerin">
+    <span>© <span id="year"></span> Uddhav Mishra. Built with care.</span>
+    <span>Full-Stack Development · Bots · Automation</span>
+    <a href="#home">Back to top ↑</a>
+  </div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════
+   FLAME CARD — WebGL GLSL renderer
+   Props mirrored from FireCard spec
+   ══════════════════════════════════════════════ */
+(function(){
+  const wrap   = document.getElementById('flame-card-wrap');
+  const canvas = document.getElementById('flame-canvas');
+  if (!wrap || !canvas) return;
+
+  /* ── Config (all props from spec) ── */
+  const CFG = {
+    color:            [0.443, 0.149, 1.0],   // #7126FF — violet-ish flame
+    highlightColor:   [0.44, 1.0, 0.89],     // --cyan highlight
+    speed:            0.5,
+    positionY:        0.0,
+    scale:            4.0,
+    effectRadius:     0.9,
+    effectBoost:      0.5,
+    edgeMin:          0.0,
+    edgeMax:          1.0,
+    falloffPower:     2.0,
+    noiseScale:       1.5,
+    widthFactor:      1.5,
+    waveAmount:       0.15,
+    branchIntensity:  2.0,
+    verticalExtent:   1.5,
+    horizontalExtent: 1.5,
+    contours:         1.0,
+    flash:            0.6,
+    blur:             4.0,
+    intensity:        1.0,
+    bloom:            0.8,
+    grain:            0.25,
+    fade:             0.6,
+    opacity:          1.0,
+    tiltStrength:     8.0,
+    parallax:         1.0,
+    hoverRise:        1.0,
+    intro:            true,
+    dpr:              Math.min(window.devicePixelRatio || 1, 2),
+  };
+
+  /* ── Vertex shader ── */
+  const VERT = `
+    attribute vec2 a_pos;
+    void main(){ gl_Position = vec4(a_pos,0.,1.); }
+  `;
+
+  /* ── Fragment shader (full flame) ── */
+  const FRAG = `
+    precision highp float;
+    uniform vec2  u_res;
+    uniform float u_time;
+    uniform vec3  u_color;
+    uniform vec3  u_highlight;
+    uniform float u_speed;
+    uniform float u_posY;
+    uniform float u_scale;
+    uniform float u_effectRadius;
+    uniform float u_effectBoost;
+    uniform float u_edgeMin;
+    uniform float u_edgeMax;
+    uniform float u_falloffPower;
+    uniform float u_noiseScale;
+    uniform float u_widthFactor;
+    uniform float u_waveAmount;
+    uniform float u_branchIntensity;
+    uniform float u_vertExtent;
+    uniform float u_horizExtent;
+    uniform float u_contours;
+    uniform float u_flash;
+    uniform float u_intensity;
+    uniform float u_bloom;
+    uniform float u_grain;
+    uniform float u_fade;
+    uniform float u_opacity;
+    uniform float u_hoverAmt;  /* 0..1 hover progress */
+    uniform float u_introAmt;  /* 0..1 intro progress  */
+    uniform float u_tiltX;
+    uniform float u_tiltY;
+
+    /* ── hash / noise helpers ── */
+    float hash(vec2 p){
+      p = fract(p * vec2(127.1, 311.7));
+      p += dot(p, p + 19.19);
+      return fract(p.x * p.y);
+    }
+    float noise(vec2 p){
+      vec2 i = floor(p), f = fract(p);
+      f = f*f*(3.-2.*f);
+      float a = hash(i),
+            b = hash(i+vec2(1,0)),
+            c = hash(i+vec2(0,1)),
+            d = hash(i+vec2(1,1));
+      return mix(mix(a,b,f.x), mix(c,d,f.x), f.y);
+    }
+    float fbm(vec2 p){
+      float v=0., a=.5;
+      for(int i=0;i<5;i++){ v+=a*noise(p); p*=2.1; a*=.5; }
+      return v;
+    }
+
+    void main(){
+      vec2 uv = gl_FragCoord.xy / u_res;
+
+      /* slight parallax shift on hover */
+      vec2 shift = vec2(u_tiltX, u_tiltY) * 0.012 * u_hoverAmt;
+      uv += shift;
+
+      /* centre, scale to flame space */
+      vec2 q = uv - vec2(0.5);
+      q.x /= u_horizExtent;
+      q.y = q.y / u_vertExtent + 0.28 + u_posY * 0.01;
+
+      /* intro: flame rises up from bottom */
+      float introShift = (1.0 - u_introAmt) * 0.6;
+      q.y -= introShift;
+
+      /* hover rise */
+      float hRise = u_hoverAmt * u_hoverAmt * 0.12;
+      q.y -= hRise;
+
+      float t = u_time * u_speed;
+
+      /* wave sway */
+      float sway = sin(t * 1.2 + q.y * 3.5) * u_waveAmount * (1.0 - abs(q.x) * 2.5);
+      q.x += sway;
+
+      /* scale into noise space */
+      vec2 np = q * u_scale * u_noiseScale;
+
+      /* animated FBM */
+      float f1 = fbm(np + vec2(0.0,  -t * 1.8));
+      float f2 = fbm(np + vec2(1.3,  -t * 2.1 + 0.7));
+      float flame = mix(f1, f2, 0.45);
+
+      /* branch / split tongues */
+      float branch = fbm(np * 0.6 + vec2(0.2, -t * 1.1)) * u_branchIntensity * 0.18;
+      flame = flame + branch * (1.0 - abs(q.x)*3.0);
+
+      /* shape envelope: narrower at top, fades with height */
+      float xEnv   = 1.0 - smoothstep(0.0, u_widthFactor * 0.25, abs(q.x));
+      float yEnv   = 1.0 - smoothstep(-0.28, 0.32, q.y);
+      float shaped = flame * xEnv * yEnv;
+
+      /* core effect radius */
+      float core = smoothstep(u_edgeMin, u_edgeMax,
+                    pow(clamp(shaped * u_effectRadius + u_effectBoost * 0.35, 0.,1.),
+                        u_falloffPower));
+
+      /* fade top so content is readable */
+      float topFade = 1.0 - smoothstep(1.0 - u_fade, 1.02, uv.y);
+      core *= topFade;
+
+      /* intro opacity ramp */
+      core *= smoothstep(0.0, 0.35, u_introAmt);
+
+      /* flash pulse */
+      float pulse = 0.5 + 0.5 * sin(t * 3.1 + 1.0);
+      float flashAmt = u_flash * 0.18 * pulse * core;
+
+      /* grain */
+      float gr = (hash(gl_FragCoord.xy + fract(t * 131.7)) - 0.5) * u_grain * 0.55;
+
+      /* hover brightens */
+      float hBright = 1.0 + u_hoverAmt * u_hoverRise * 0.35;
+
+      /* base colour mix: flame colour + highlight at bright spots */
+      vec3 col = mix(u_color, u_highlight, clamp(core * 1.4 - 0.6, 0., 1.));
+      col = col * u_intensity * hBright;
+
+      /* bloom: a wide softened version */
+      float bloomVal = clamp(core * u_bloom * 0.6, 0., 1.);
+      col = mix(col, col + u_highlight * 0.55, bloomVal);
+
+      /* flash */
+      col += vec3(flashAmt);
+
+      /* grain */
+      col = clamp(col + gr, 0., 1.);
+
+      /* contour lines — thin iso-curves */
+      float cLine = abs(fract(shaped * 5.5 + t * 0.18) - 0.5);
+      float cMask = smoothstep(0.07, 0.0, cLine) * core * u_contours * 0.35;
+      col += u_highlight * cMask;
+
+      float alpha = clamp(core * 1.8, 0., 1.) * u_opacity;
+
+      gl_FragColor = vec4(col * alpha, alpha);
+    }
+  `;
+
+  /* ── WebGL setup ── */
+  const gl = canvas.getContext('webgl', {alpha:true, premultipliedAlpha:false, antialias:false});
+  if (!gl) return;
+  gl.enable(gl.BLEND);
+  gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+
+  function compileShader(src, type){
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)){
+      console.warn('Shader error:', gl.getShaderInfoLog(s));
+    }
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, compileShader(VERT, gl.VERTEX_SHADER));
+  gl.attachShader(prog, compileShader(FRAG, gl.FRAGMENT_SHADER));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+
+  /* full-screen quad */
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
+  const aPos = gl.getAttribLocation(prog, 'a_pos');
+  gl.enableVertexAttribArray(aPos);
+  gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+  /* cache uniforms */
+  const U = {};
+  ['u_res','u_time','u_color','u_highlight','u_speed','u_posY','u_scale',
+   'u_effectRadius','u_effectBoost','u_edgeMin','u_edgeMax','u_falloffPower',
+   'u_noiseScale','u_widthFactor','u_waveAmount','u_branchIntensity',
+   'u_vertExtent','u_horizExtent','u_contours','u_flash','u_intensity',
+   'u_bloom','u_grain','u_fade','u_opacity','u_hoverAmt','u_hoverRise',
+   'u_introAmt','u_tiltX','u_tiltY'
+  ].forEach(n => { U[n] = gl.getUniformLocation(prog, n); });
+
+  /* ── Resize ── */
+  function resize(){
+    const r  = wrap.getBoundingClientRect();
+    const dpr = CFG.dpr;
+    canvas.width  = r.width  * dpr;
+    canvas.height = r.height * dpr;
+    canvas.style.width  = r.width  + 'px';
+    canvas.style.height = r.height + 'px';
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  }
+  resize();
+  window.addEventListener('resize', resize, {passive:true});
+
+  /* ── Tilt / hover state ── */
+  let tiltX = 0, tiltY = 0, hoverAmt = 0, hoverTarget = 0;
+  let introAmt = 0, introTarget = 0;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  if (!reducedMotion && CFG.intro) {
+    setTimeout(() => { introTarget = 1; }, 120);
+  } else {
+    introAmt = introTarget = 1;
+  }
+
+  wrap.addEventListener('pointerenter', () => { hoverTarget = 1; });
+  wrap.addEventListener('pointerleave', () => {
+    hoverTarget = 0; tiltX = 0; tiltY = 0;
+    wrap.style.transform = 'rotate(-2deg)';
+  });
+  wrap.addEventListener('pointermove', e => {
+    const r  = wrap.getBoundingClientRect();
+    const nx = (e.clientX - r.left)  / r.width  - 0.5;
+    const ny = (e.clientY - r.top)   / r.height - 0.5;
+    tiltX = -ny * CFG.tiltStrength;
+    tiltY =  nx * CFG.tiltStrength;
+    const para = CFG.parallax * hoverAmt;
+    wrap.style.transform =
+      `rotate(-2deg) perspective(900px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(${para * 6}px)`;
+  });
+
+  /* ── Render loop ── */
+  let raf, start = null;
+  function frame(ts){
+    if (!start) start = ts;
+    const t = (ts - start) * 0.001;
+
+    /* smooth lerp */
+    const lk = 0.09;
+    hoverAmt  += (hoverTarget  - hoverAmt)  * lk;
+    introAmt  += (introTarget  - introAmt)  * (introTarget > 0 ? 0.025 : 0.07);
+
+    const speedBoost = 1.0 + hoverAmt * CFG.hoverRise * 0.6;
+
+    resize();
+    gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT);
+
+    gl.uniform2f(U.u_res, canvas.width, canvas.height);
+    gl.uniform1f(U.u_time,  t * speedBoost);
+    gl.uniform3fv(U.u_color,      CFG.color);
+    gl.uniform3fv(U.u_highlight,  CFG.highlightColor);
+    gl.uniform1f(U.u_speed,       CFG.speed);
+    gl.uniform1f(U.u_posY,        CFG.positionY);
+    gl.uniform1f(U.u_scale,       CFG.scale);
+    gl.uniform1f(U.u_effectRadius,CFG.effectRadius);
+    gl.uniform1f(U.u_effectBoost, CFG.effectBoost);
+    gl.uniform1f(U.u_edgeMin,     CFG.edgeMin);
+    gl.uniform1f(U.u_edgeMax,     CFG.edgeMax);
+    gl.uniform1f(U.u_falloffPower,CFG.falloffPower);
+    gl.uniform1f(U.u_noiseScale,  CFG.noiseScale);
+    gl.uniform1f(U.u_widthFactor, CFG.widthFactor);
+    gl.uniform1f(U.u_waveAmount,  CFG.waveAmount);
+    gl.uniform1f(U.u_branchIntensity, CFG.branchIntensity);
+    gl.uniform1f(U.u_vertExtent,  CFG.verticalExtent);
+    gl.uniform1f(U.u_horizExtent, CFG.horizontalExtent);
+    gl.uniform1f(U.u_contours,    CFG.contours);
+    gl.uniform1f(U.u_flash,       CFG.flash);
+    gl.uniform1f(U.u_intensity,   CFG.intensity);
+    gl.uniform1f(U.u_bloom,       CFG.bloom);
+    gl.uniform1f(U.u_grain,       CFG.grain);
+    gl.uniform1f(U.u_fade,        CFG.fade);
+    gl.uniform1f(U.u_opacity,     CFG.opacity);
+    gl.uniform1f(U.u_hoverAmt,    hoverAmt);
+    gl.uniform1f(U.u_hoverRise,   CFG.hoverRise);
+    gl.uniform1f(U.u_introAmt,    introAmt);
+    gl.uniform1f(U.u_tiltX,       tiltX / CFG.tiltStrength);
+    gl.uniform1f(U.u_tiltY,       tiltY / CFG.tiltStrength);
+
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    raf = requestAnimationFrame(frame);
+  }
+
+  if (!reducedMotion) {
+    raf = requestAnimationFrame(frame);
+  } else {
+    /* still flame for reduced-motion */
+    introAmt = 1;
+    requestAnimationFrame(ts => { start = ts; frame(ts); cancelAnimationFrame(raf); });
+  }
+})();
+/* ══════════════════════════════════════════════
+   PRICING FLAME CARDS — WebGL per card
+   ══════════════════════════════════════════════ */
+(function(){
+  const VERT = `attribute vec2 a_pos;void main(){gl_Position=vec4(a_pos,0.,1.);}`;
+  const FRAG = `
+    precision highp float;
+    uniform vec2  u_res;
+    uniform float u_time;
+    uniform vec3  u_color;
+    uniform vec3  u_hi;
+    uniform float u_hover;
+    uniform float u_intro;
+    uniform float u_tiltX;
+    uniform float u_tiltY;
+    float hash(vec2 p){p=fract(p*vec2(127.1,311.7));p+=dot(p,p+19.19);return fract(p.x*p.y);}
+    float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
+    float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*noise(p);p*=2.1;a*=.5;}return v;}
+    void main(){
+      vec2 uv=gl_FragCoord.xy/u_res;
+      uv+=vec2(u_tiltX,u_tiltY)*.01*u_hover;
+      vec2 q=uv-vec2(.5);
+      q.x/=1.5; q.y=q.y/1.5+.28;
+      q.y-=(1.-u_intro)*.7;
+      q.y-=u_hover*u_hover*.1;
+      float t=u_time*.5;
+      q.x+=sin(t*1.2+q.y*3.5)*.15*(1.-abs(q.x)*2.5);
+      vec2 np=q*4.*1.5;
+      float f1=fbm(np+vec2(0.,-t*1.8));
+      float f2=fbm(np+vec2(1.3,-t*2.1+.7));
+      float fl=mix(f1,f2,.45);
+      fl+=fbm(np*.6+vec2(.2,-t*1.1))*2.*.18*(1.-abs(q.x)*3.);
+      float xE=1.-smoothstep(0.,.375,abs(q.x));
+      float yE=1.-smoothstep(-.28,.32,q.y);
+      float sh=fl*xE*yE;
+      float core=smoothstep(0.,1.,pow(clamp(sh*.9+.175,0.,1.),2.));
+      core*=1.-smoothstep(.4,1.02,uv.y);
+      core*=smoothstep(0.,.35,u_intro);
+      float pulse=.5+.5*sin(t*3.1+1.);
+      float gr=(hash(gl_FragCoord.xy+fract(t*131.7))-.5)*.14;
+      float hb=1.+u_hover*.35;
+      vec3 col=mix(u_color,u_hi,clamp(core*1.4-.6,0.,1.))*hb;
+      col=mix(col,col+u_hi*.55,clamp(core*.8*.6,0.,1.));
+      col+=vec3(pulse*.18*.6*core);
+      col=clamp(col+gr,0.,1.);
+      col+=u_hi*smoothstep(.07,0.,abs(fract(sh*5.5+t*.18)-.5))*core*.35;
+      float alpha=clamp(core*1.8,0.,1.);
+      gl_FragColor=vec4(col*alpha,alpha);
+    }
+  `;
+
+  function hexRgb(hex){
+    const c=hex.replace('#','');
+    const n=parseInt(c.length===3?c.split('').map(x=>x+x).join(''):c,16);
+    return [(n>>16&255)/255,(n>>8&255)/255,(n&255)/255];
+  }
+  function lighten(rgb){return rgb.map(v=>Math.min(1,v+.4));}
+
+  function initCard(card){
+    const canvas = card.querySelector('.price-flame');
+    if(!canvas) return;
+    const colorHex = card.dataset.flameColor || '#5227FF';
+    const colorRgb = hexRgb(colorHex);
+    const hiRgb    = colorHex === '#71f5e2' ? hexRgb('#a6fff2') : lighten(colorRgb);
+    const gl = canvas.getContext('webgl',{alpha:true,premultipliedAlpha:false,antialias:false});
+    if(!gl) return;
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);
+
+    function sh(src,type){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);return s;}
+    const prog=gl.createProgram();
+    gl.attachShader(prog,sh(VERT,gl.VERTEX_SHADER));
+    gl.attachShader(prog,sh(FRAG,gl.FRAGMENT_SHADER));
+    gl.linkProgram(prog); gl.useProgram(prog);
+
+    const buf=gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+    const aPos=gl.getAttribLocation(prog,'a_pos');
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos,2,gl.FLOAT,false,0,0);
+
+    const U={};
+    ['u_res','u_time','u_color','u_hi','u_hover','u_intro','u_tiltX','u_tiltY']
+      .forEach(n=>{U[n]=gl.getUniformLocation(prog,n);});
+
+    const dpr=Math.min(window.devicePixelRatio||1,2);
+    let hoverAmt=0,hoverTarget=0,introAmt=0,introTarget=0,tiltX=0,tiltY=0,start=null,raf=null;
+    const reduced=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+    function resize(){
+      const r=card.getBoundingClientRect();
+      const w=Math.round(r.width*dpr),h=Math.round(r.height*dpr);
+      if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h);}
+    }
+
+    function frame(ts){
+      if(!start)start=ts;
+      const t=(ts-start)*.001;
+      hoverAmt+=(hoverTarget-hoverAmt)*.09;
+      introAmt+=(introTarget-introAmt)*(introTarget>.5?.025:.07);
+      resize();
+      gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.uniform2f(U.u_res,canvas.width,canvas.height);
+      gl.uniform1f(U.u_time,t*(1+hoverAmt*.5));
+      gl.uniform3fv(U.u_color,colorRgb);
+      gl.uniform3fv(U.u_hi,hiRgb);
+      gl.uniform1f(U.u_hover,hoverAmt);
+      gl.uniform1f(U.u_intro,introAmt);
+      gl.uniform1f(U.u_tiltX,tiltX/8);
+      gl.uniform1f(U.u_tiltY,tiltY/8);
+      gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+      raf=requestAnimationFrame(frame);
+    }
+
+    if(!reduced){
+      raf=requestAnimationFrame(frame);
+    } else {
+      introAmt=introTarget=1;
+      requestAnimationFrame(ts=>{start=ts;frame(ts);cancelAnimationFrame(raf);});
+    }
+
+    card.addEventListener('pointerenter',()=>{hoverTarget=1;});
+    card.addEventListener('pointerleave',()=>{
+      hoverTarget=0;tiltX=0;tiltY=0;
+      card.style.transform='';
+    });
+    card.addEventListener('pointermove',e=>{
+      const r=card.getBoundingClientRect();
+      tiltX=-(((e.clientY-r.top)/r.height)-.5)*8;
+      tiltY= (((e.clientX-r.left)/r.width)-.5)*10;
+      card.style.transform=`perspective(900px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-5px)`;
+    });
+
+    /* IntersectionObserver triggers intro when card scrolls into view */
+    if('IntersectionObserver' in window && !reduced){
+      const io=new IntersectionObserver(entries=>{
+        entries.forEach(en=>{if(en.isIntersecting){introTarget=1;io.unobserve(card);}});
+      },{threshold:.15});
+      io.observe(card);
+    } else {
+      introTarget=1;
+    }
+  }
+
+  document.querySelectorAll('.price-card').forEach(initCard);
+})();
+/* ══ end pricing flame ══ */
+</script>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+const menu = document.getElementById('menu'), nav = document.getElementById('navlinks');
+menu.addEventListener('click', () => { const o = nav.classList.toggle('open'); menu.setAttribute('aria-expanded', String(o)); menu.textContent = o ? '×' : '☰'; });
+nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav.classList.remove('open'); menu.setAttribute('aria-expanded','false'); menu.textContent='☰'; }));
+if ('IntersectionObserver' in window) {
+  const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); obs.unobserve(e.target); } }), { threshold:.1 });
+  document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+} else { document.querySelectorAll('.fade').forEach(el => el.classList.add('show')); }
+const glow = document.getElementById('cursor-glow'); let pf = 0;
+document.addEventListener('pointermove', e => { if (e.pointerType==='touch'||!glow) return; if(pf) cancelAnimationFrame(pf); pf=requestAnimationFrame(()=>{ glow.style.left=e.clientX+'px'; glow.style.top=e.clientY+'px'; }); }, {passive:true});
+const fp = window.matchMedia('(pointer:fine)').matches, nm = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+if (fp && !nm) {
+  document.querySelectorAll('.service,.project,.review,.profile-card').forEach(c => {
+    c.addEventListener('pointermove', e => { const r=c.getBoundingClientRect(); const rx=(0.5-(e.clientY-r.top)/r.height)*5; const ry=((e.clientX-r.left)/r.width-0.5)*7; c.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`; });
+    c.addEventListener('pointerleave', () => { c.style.transform=''; });
+  });
+}
+document.addEventListener('pointerdown', e => {
+  if (e.pointerType==='mouse' && e.button!==0) return;
+  const t = e.target.closest('a,button,.service,.project,.review,.skill,.price-card');
+  if (!t) return;
+  const r=t.getBoundingClientRect(), rp=document.createElement('span');
+  rp.className='ripple';
+  rp.style.left=((e.clientX||r.left+r.width/2)-r.left)+'px';
+  rp.style.top=((e.clientY||r.top+r.height/2)-r.top)+'px';
+  t.appendChild(rp); rp.addEventListener('animationend',()=>rp.remove(),{once:true});
+});
+</script>
+</body>
+</html>

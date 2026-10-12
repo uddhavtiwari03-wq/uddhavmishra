@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel — Uddhav Mishra</title>
+<style>
+:root{
+  --bg:#080b12;--panel:#101521;--panel2:#0c111b;
+  --text:#f4f7fb;--muted:#9ba7ba;--line:rgba(255,255,255,.09);
+  --cyan:#71f5e2;--violet:#a99bff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:radial-gradient(ellipse at 80% 0%,rgba(100,85,255,.12),transparent 32%),
+             radial-gradient(ellipse at 5% 22%,rgba(47,222,197,.08),transparent 27%),var(--bg);
+  color:var(--text);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  min-height:100vh;display:flex;flex-direction:column;
+}
+a{color:inherit;text-decoration:none}
+
+/* ── LOGIN PAGE ── */
+#login-page{
+  flex:1;display:flex;align-items:center;justify-content:center;padding:24px;
+}
+.login-card{
+  width:min(420px,100%);
+  border:1px solid rgba(113,245,226,.2);
+  border-radius:24px;
+  padding:42px 36px;
+  background:linear-gradient(145deg,rgba(18,24,37,.98),rgba(10,14,22,.98));
+  box-shadow:0 30px 80px rgba(0,0,0,.45);
+}
+.login-logo{
+  display:flex;align-items:center;gap:11px;margin-bottom:30px;
+}
+.loginmark{
+  width:42px;height:42px;display:grid;place-items:center;
+  border-radius:14px;color:#08100f;font-weight:950;font-size:16px;
+  background:linear-gradient(135deg,var(--cyan),var(--violet));
+  box-shadow:0 0 22px rgba(113,245,226,.2);
+}
+.login-logo span{font-weight:850;font-size:18px;letter-spacing:-.5px}
+.login-logo small{display:block;font-size:11px;color:var(--muted);font-weight:400}
+.login-card h2{font-size:24px;font-weight:800;letter-spacing:-.7px;margin-bottom:6px}
+.login-card p{font-size:13px;color:var(--muted);margin-bottom:28px}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:12px;font-weight:700;color:#c5cfe0;margin-bottom:7px;letter-spacing:.3px}
+.field input{
+  width:100%;padding:13px 15px;
+  background:rgba(255,255,255,.05);
+  border:1px solid var(--line);
+  border-radius:12px;
+  color:var(--text);font-size:14px;
+  outline:none;transition:.2s;
+}
+.field input:focus{border-color:rgba(113,245,226,.45);background:rgba(113,245,226,.04)}
+.login-btn{
+  width:100%;padding:14px;border-radius:13px;border:0;
+  background:linear-gradient(120deg,var(--cyan),#a6fff2);
+  color:#07110f;font-weight:800;font-size:14px;
+  cursor:pointer;transition:.2s;margin-top:4px;
+}
+.login-btn:hover{filter:brightness(1.07);transform:translateY(-1px)}
+.login-err{
+  display:none;margin-top:14px;padding:11px 14px;
+  border-radius:11px;background:rgba(255,80,80,.1);
+  border:1px solid rgba(255,80,80,.25);
+  color:#ff9090;font-size:12px;
+}
+.login-err.show{display:block}
+
+/* ── DASHBOARD ── */
+#dashboard{display:none;flex-direction:column;min-height:100vh}
+
+.topbar{
+  background:rgba(8,11,18,.88);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--line);
+  padding:0 28px;height:68px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:50;
+}
+.topbar-brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px}
+.topbar-mark{
+  width:34px;height:34px;display:grid;place-items:center;
+  border-radius:11px;color:#08100f;font-weight:950;font-size:13px;
+  background:linear-gradient(135deg,var(--cyan),var(--violet));
+}
+.topbar-right{display:flex;align-items:center;gap:14px}
+.admin-badge{
+  font-size:11px;padding:5px 11px;border-radius:999px;
+  background:rgba(113,245,226,.1);border:1px solid rgba(113,245,226,.2);
+  color:var(--cyan);font-weight:700;
+}
+.logout-btn{
+  padding:9px 15px;border-radius:10px;border:1px solid var(--line);
+  background:rgba(255,255,255,.04);color:var(--muted);
+  font-size:12px;font-weight:700;cursor:pointer;transition:.2s;
+}
+.logout-btn:hover{border-color:rgba(255,100,100,.35);color:#ff9090;background:rgba(255,80,80,.07)}
+
+.dash-body{display:flex;flex:1}
+
+/* sidebar */
+.sidebar{
+  width:220px;flex-shrink:0;
+  border-right:1px solid var(--line);
+  padding:20px 14px;
+  display:flex;flex-direction:column;gap:4px;
+  background:rgba(8,11,18,.5);
+}
+.nav-item{
+  display:flex;align-items:center;gap:11px;
+  padding:11px 13px;border-radius:12px;
+  font-size:13px;font-weight:600;color:var(--muted);
+  cursor:pointer;transition:.18s;border:1px solid transparent;
+}
+.nav-item:hover{background:rgba(255,255,255,.04);color:var(--text)}
+.nav-item.active{
+  background:rgba(113,245,226,.08);
+  border-color:rgba(113,245,226,.18);
+  color:var(--cyan);
+}
+.nav-item .nav-icon{font-size:15px;width:20px;text-align:center}
+.sidebar-sep{height:1px;background:var(--line);margin:10px 0}
+
+/* main content */
+.dash-main{flex:1;padding:28px;overflow-y:auto}
+.page{display:none}
+.page.active{display:block}
+
+.page-title{font-size:22px;font-weight:800;letter-spacing:-.6px;margin-bottom:4px}
+.page-sub{font-size:13px;color:var(--muted);margin-bottom:26px}
+
+/* stat cards */
+.stat-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:28px}
+.stat-card{
+  padding:22px 20px;border-radius:18px;
+  border:1px solid var(--line);
+  background:linear-gradient(145deg,rgba(18,24,37,.9),rgba(10,14,22,.9));
+}
+.stat-card .s-label{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px}
+.stat-card .s-val{font-size:32px;font-weight:900;letter-spacing:-1px;color:#fff}
+.stat-card .s-note{font-size:11px;color:var(--muted);margin-top:4px}
+.stat-card.cyan .s-val{color:var(--cyan)}
+.stat-card.violet .s-val{color:var(--violet)}
+
+/* table */
+.table-wrap{border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:16px}
+table{width:100%;border-collapse:collapse}
+thead th{
+  background:rgba(255,255,255,.04);
+  padding:12px 16px;text-align:left;
+  font-size:11px;font-weight:800;
+  color:var(--muted);letter-spacing:.5px;text-transform:uppercase;
+  border-bottom:1px solid var(--line);
+}
+tbody tr{border-bottom:1px solid rgba(255,255,255,.04);transition:.15s}
+tbody tr:last-child{border-bottom:0}
+tbody tr:hover{background:rgba(255,255,255,.03)}
+tbody td{padding:13px 16px;font-size:13px;color:#d0d8e8}
+.badge{
+  display:inline-block;padding:3px 9px;border-radius:999px;
+  font-size:10px;font-weight:800;letter-spacing:.4px;
+}
+.badge.green{background:rgba(113,245,226,.12);color:var(--cyan);border:1px solid rgba(113,245,226,.2)}
+.badge.yellow{background:rgba(255,200,80,.1);color:#ffd060;border:1px solid rgba(255,200,80,.2)}
+.badge.red{background:rgba(255,80,80,.1);color:#ff9090;border:1px solid rgba(255,80,80,.2)}
+.badge.purple{background:rgba(169,155,255,.12);color:var(--violet);border:1px solid rgba(169,155,255,.2)}
+
+/* section card */
+.s-card{
+  border:1px solid var(--line);border-radius:16px;
+  padding:24px;margin-bottom:20px;
+  background:linear-gradient(145deg,rgba(16,21,33,.9),rgba(10,14,22,.9));
+}
+.s-card h3{font-size:16px;font-weight:800;margin-bottom:14px;letter-spacing:-.3px}
+
+/* project entries */
+.proj-entry{
+  padding:16px;border:1px solid var(--line);border-radius:12px;
+  margin-bottom:10px;display:flex;align-items:flex-start;gap:14px;
+  background:rgba(255,255,255,.02);
+}
+.proj-num{
+  width:36px;height:36px;border-radius:10px;flex-shrink:0;
+  background:rgba(113,245,226,.08);border:1px solid rgba(113,245,226,.15);
+  display:grid;place-items:center;font-size:12px;font-weight:800;color:var(--cyan);
+}
+.proj-info h4{font-size:13px;font-weight:700;margin-bottom:3px}
+.proj-info p{font-size:12px;color:var(--muted)}
+.proj-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.proj-tags span{font-size:10px;color:#bac5d5;padding:3px 7px;background:#ffffff08;border-radius:6px}
+
+/* price row */
+.price-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px;border:1px solid var(--line);border-radius:12px;
+  margin-bottom:8px;background:rgba(255,255,255,.02);
+}
+.price-row:last-child{margin-bottom:0}
+.price-tier-name{font-size:13px;font-weight:700}
+.price-tier-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.price-tier-amount{font-size:18px;font-weight:900;color:var(--cyan);letter-spacing:-.5px}
+
+/* contact entries */
+.contact-row{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 14px;border-radius:12px;
+  border:1px solid var(--line);margin-bottom:8px;
+  background:rgba(255,255,255,.02);
+}
+.contact-row .c-icon{font-size:18px;width:34px;text-align:center}
+.contact-row strong{display:block;font-size:13px;font-weight:700}
+.contact-row small{font-size:11px;color:var(--muted)}
+
+/* inquiry table actions */
+.action-btn{
+  padding:6px 12px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(255,255,255,.04);color:var(--muted);
+  font-size:11px;font-weight:700;cursor:pointer;transition:.15s;
+}
+.action-btn:hover{border-color:rgba(113,245,226,.3);color:var(--cyan);background:rgba(113,245,226,.06)}
+.action-btn.del:hover{border-color:rgba(255,80,80,.3);color:#ff9090;background:rgba(255,80,80,.06)}
+
+/* empty state */
+.empty{text-align:center;padding:40px 20px;color:var(--muted);font-size:13px}
+.empty .e-icon{font-size:32px;margin-bottom:10px}
+
+/* responsive */
+@media(max-width:768px){
+  .sidebar{width:180px}
+  .topbar{padding:0 16px}
+  .dash-main{padding:18px}
+}
+@media(max-width:600px){
+  .dash-body{flex-direction:column}
+  .sidebar{width:100%;flex-direction:row;flex-wrap:wrap;gap:4px;padding:10px}
+  .sidebar-sep{display:none}
+  .stat-row{grid-template-columns:1fr 1fr}
+  .topbar{padding:0 14px}
+  table{font-size:12px}
+  thead th,tbody td{padding:10px 12px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ LOGIN PAGE ═══════════════ -->
+<div id="login-page">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="loginmark">U</div>
+      <div>
+        <span>uddhav<span style="background:linear-gradient(105deg,var(--cyan),#b2b0ff);-webkit-background-clip:text;background-clip:text;color:transparent">.dev</span></span>
+        <small>Admin Panel</small>
+      </div>
+    </div>
+    <h2>Welcome back</h2>
+    <p>Sign in to manage your portfolio.</p>
+
+    <form id="login-form" autocomplete="off">
+      <div class="field">
+        <label for="email">EMAIL ADDRESS</label>
+        <input type="email" id="email" placeholder="your@email.com" autocomplete="username" required>
+      </div>
+      <div class="field">
+        <label for="password">PASSWORD</label>
+        <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="login-btn">Sign In →</button>
+      <div class="login-err" id="login-err">Incorrect email or password. Please try again.</div>
+    </form>
+  </div>
+</div>
+
+<!-- ═══════════════ DASHBOARD ═══════════════ -->
+<div id="dashboard">
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <div class="topbar-brand">
+      <div class="topbar-mark">U</div>
+      <span>Admin Panel</span>
+    </div>
+    <div class="topbar-right">
+      <span class="admin-badge">● Signed in</span>
+      <button class="logout-btn" id="logout-btn">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="dash-body">
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+      <div class="nav-item active" data-page="overview">
+        <span class="nav-icon">◉</span> Overview
+      </div>
+      <div class="nav-item" data-page="inquiries">
+        <span class="nav-icon">✉</span> Inquiries
+      </div>
+      <div class="nav-item" data-page="projects">
+        <span class="nav-icon">⌘</span> Projects
+      </div>
+      <div class="nav-item" data-page="pricing">
+        <span class="nav-icon">◈</span> Pricing
+      </div>
+      <div class="nav-item" data-page="contact">
+        <span class="nav-icon">📱</span> Contact Info
+      </div>
+      <div class="sidebar-sep"></div>
+      <div class="nav-item" data-page="settings">
+        <span class="nav-icon">⚙</span> Settings
+      </div>
+    </nav>
+
+    <!-- Main -->
+    <main class="dash-main">
+
+      <!-- ── OVERVIEW ── -->
+      <div class="page active" id="page-overview">
+        <div class="page-title">Overview</div>
+        <div class="page-sub">Your portfolio dashboard at a glance.</div>
+
+        <div class="stat-row">
+          <div class="stat-card cyan">
+            <div class="s-label">Portfolio Sections</div>
+            <div class="s-val">7</div>
+            <div class="s-note">Hero · Services · Projects · Pricing · About · Reviews · Contact</div>
+          </div>
+          <div class="stat-card">
+            <div class="s-label">Projects Listed</div>
+            <div class="s-val">4</div>
+            <div class="s-note">Featured work visible to visitors</div>
+          </div>
+          <div class="stat-card violet">
+            <div class="s-label">Pricing Plans</div>
+            <div class="s-val">3</div>
+            <div class="s-note">₹6K · ₹16K · ₹32K</div>
+          </div>
+          <div class="stat-card">
+            <div class="s-label">Contact Channels</div>
+            <div class="s-val">3</div>
+            <div class="s-note">WhatsApp · Telegram · Gmail</div>
+          </div>
+        </div>
+
+        <div class="s-card">
+          <h3>Quick Links</h3>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <a href="index.html" target="_blank" style="padding:10px 16px;border-radius:10px;background:rgba(113,245,226,.08);border:1px solid rgba(113,245,226,.2);color:var(--cyan);font-size:13px;font-weight:700">↗ View Portfolio</a>
+            <a href="https://wa.me/917499749945" target="_blank" style="padding:10px 16px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--text);font-size:13px;font-weight:700">📱 WhatsApp</a>
+            <a href="https://t.me/uddhavmishra" target="_blank" style="padding:10px 16px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--text);font-size:13px;font-weight:700">✈️ Telegram</a>
+            <a href="mailto:uddhavthakur2411@gmail.com" style="padding:10px 16px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--text);font-size:13px;font-weight:700">✉️ Gmail</a>
+          </div>
+        </div>
+
+        <div class="s-card">
+          <h3>Recent Inquiries</h3>
+          <div id="recent-inquiries-placeholder">
+            <div class="empty">
+              <div class="e-icon">📭</div>
+              No inquiries yet. When visitors contact you via WhatsApp or Telegram, track them in the <strong>Inquiries</strong> tab.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── INQUIRIES ── -->
+      <div class="page" id="page-inquiries">
+        <div class="page-title">Inquiries</div>
+        <div class="page-sub">Manually log and track project inquiries from visitors.</div>
+
+        <div class="s-card">
+          <h3>Add New Inquiry</h3>
+          <form id="inquiry-form" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="field"><label>CLIENT NAME</label><input type="text" id="inq-name" placeholder="e.g. Rahul Sharma"></div>
+            <div class="field"><label>CONTACT</label><input type="text" id="inq-contact" placeholder="WhatsApp / Telegram / Email"></div>
+            <div class="field"><label>PROJECT TYPE</label><input type="text" id="inq-type" placeholder="e.g. Full-Stack Website"></div>
+            <div class="field">
+              <label>STATUS</label>
+              <select id="inq-status" style="width:100%;padding:13px 15px;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:12px;color:var(--text);font-size:14px;outline:none">
+                <option value="New">New</option>
+                <option value="In Discussion">In Discussion</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+                <option value="Declined">Declined</option>
+              </select>
+            </div>
+            <div class="field" style="grid-column:1/-1"><label>NOTES</label><input type="text" id="inq-notes" placeholder="Budget, requirements, timeline..."></div>
+            <div style="grid-column:1/-1">
+              <button type="submit" class="login-btn" style="width:auto;padding:12px 24px">Add Inquiry</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Client</th><th>Contact</th><th>Project</th><th>Status</th><th>Notes</th><th>Date</th><th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="inquiry-table-body">
+              <tr><td colspan="7"><div class="empty"><div class="e-icon">📋</div>No inquiries logged yet. Add one above.</div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── PROJECTS ── -->
+      <div class="page" id="page-projects">
+        <div class="page-title">Projects</div>
+        <div class="page-sub">Your featured work shown on the portfolio.</div>
+
+        <div class="proj-entry">
+          <div class="proj-num">01</div>
+          <div class="proj-info">
+            <h4>CheapOTP — OTP &amp; Session Store</h4>
+            <p>Full-stack OTP &amp; Telegram session selling platform with bot, auto-payment via Gmail (FamPay/UPI), user dashboard, admin panel, and reseller API.</p>
+            <div class="proj-tags">
+              <span>React</span><span>Node.js</span><span>SQLite</span><span>Telegram Bot</span><span>Payment Automation</span>
+            </div>
+          </div>
+          <span class="badge green" style="flex-shrink:0">Live</span>
+        </div>
+
+        <div class="proj-entry">
+          <div class="proj-num">02</div>
+          <div class="proj-info">
+            <h4>Telegram Workflow Bot</h4>
+            <p>Conversational bot for guided user flows, automated OTP delivery, payment verification, broadcast messaging, and admin management.</p>
+            <div class="proj-tags">
+              <span>Telegram Bot API</span><span>Python</span><span>Node.js</span><span>Database</span>
+            </div>
+          </div>
+          <span class="badge green" style="flex-shrink:0">Live</span>
+        </div>
+
+        <div class="proj-entry">
+          <div class="proj-num">03</div>
+          <div class="proj-info">
+            <h4>Auto-Payment Verification</h4>
+            <p>Gmail-based UPI payment poller that auto-detects incoming payments, matches them to pending deposits, and instantly credits user balances.</p>
+            <div class="proj-tags">
+              <span>Node.js</span><span>Gmail API</span><span>UPI</span><span>Webhooks</span>
+            </div>
+          </div>
+          <span class="badge yellow" style="flex-shrink:0">Internal</span>
+        </div>
+
+        <div class="proj-entry">
+          <div class="proj-num">04</div>
+          <div class="proj-info">
+            <h4>Business Management Dashboard</h4>
+            <p>Central admin panel to manage products, users, orders, deposits, and analytics with real-time SSE updates and role-based access control.</p>
+            <div class="proj-tags">
+              <span>React</span><span>REST API</span><span>SSE</span><span>Auth</span>
+            </div>
+          </div>
+          <span class="badge purple" style="flex-shrink:0">Private</span>
+        </div>
+      </div>
+
+      <!-- ── PRICING ── -->
+      <div class="page" id="page-pricing">
+        <div class="page-title">Pricing Plans</div>
+        <div class="page-sub">Current plans shown on the portfolio.</div>
+
+        <div class="s-card">
+          <h3>Active Plans</h3>
+          <div class="price-row">
+            <div>
+              <div class="price-tier-name">Basic — Starter Website</div>
+              <div class="price-tier-sub">Single-page · Mobile-first · 3–5 days delivery</div>
+            </div>
+            <div style="text-align:right">
+              <div class="price-tier-amount">₹6,000</div>
+              <span class="badge green">Active</span>
+            </div>
+          </div>
+          <div class="price-row" style="border-color:rgba(113,245,226,.25);background:rgba(113,245,226,.03)">
+            <div>
+              <div class="price-tier-name">Professional — Full-Stack Web App ⭐ Most Popular</div>
+              <div class="price-tier-sub">Multi-page · Backend · Admin panel · 7–12 days · 1 month support</div>
+            </div>
+            <div style="text-align:right">
+              <div class="price-tier-amount">₹16,000</div>
+              <span class="badge green">Active</span>
+            </div>
+          </div>
+          <div class="price-row">
+            <div>
+              <div class="price-tier-name">Advanced — Full System Build</div>
+              <div class="price-tier-sub">Website + Bot + Payments + Automation · 14–21 days · 3 months support</div>
+            </div>
+            <div style="text-align:right">
+              <div class="price-tier-amount">₹32,000</div>
+              <span class="badge green">Active</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="s-card">
+          <h3>Notes</h3>
+          <p style="font-size:13px;color:var(--muted);line-height:1.8">All prices are one-time project rates. Custom project quotes can be discussed via WhatsApp or Telegram. Edit <code style="background:rgba(255,255,255,.07);padding:2px 6px;border-radius:6px;font-size:12px">index.html</code> pricing section to update prices on the live portfolio.</p>
+        </div>
+      </div>
+
+      <!-- ── CONTACT INFO ── -->
+      <div class="page" id="page-contact">
+        <div class="page-title">Contact Info</div>
+        <div class="page-sub">Your live contact channels shown to visitors.</div>
+
+        <div class="s-card">
+          <h3>Active Channels</h3>
+          <div class="contact-row">
+            <span class="c-icon">📱</span>
+            <div>
+              <strong>WhatsApp</strong>
+              <small>+91 74997 49945 — <a href="https://wa.me/917499749945" target="_blank" style="color:var(--cyan)">Open chat ↗</a></small>
+            </div>
+            <span class="badge green" style="margin-left:auto">Active</span>
+          </div>
+          <div class="contact-row">
+            <span class="c-icon">✈️</span>
+            <div>
+              <strong>Telegram</strong>
+              <small>@uddhavmishra — <a href="https://t.me/uddhavmishra" target="_blank" style="color:var(--cyan)">Open ↗</a></small>
+            </div>
+            <span class="badge green" style="margin-left:auto">Active</span>
+          </div>
+          <div class="contact-row">
+            <span class="c-icon">✉️</span>
+            <div>
+              <strong>Gmail</strong>
+              <small>uddhavthakur2411@gmail.com — <a href="mailto:uddhavthakur2411@gmail.com" style="color:var(--cyan)">Send email ↗</a></small>
+            </div>
+            <span class="badge green" style="margin-left:auto">Active</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SETTINGS ── -->
+      <div class="page" id="page-settings">
+        <div class="page-title">Settings</div>
+        <div class="page-sub">Admin account and session settings.</div>
+
+        <div class="s-card">
+          <h3>Admin Account</h3>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;justify-content:space-between;padding:13px 16px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.02)">
+              <span style="font-size:13px;color:var(--muted)">Email</span>
+              <span style="font-size:13px;font-weight:700">uddhavthakur2411@gmail.com</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:13px 16px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.02)">
+              <span style="font-size:13px;color:var(--muted)">Role</span>
+              <span class="badge purple">Admin</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:13px 16px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.02)">
+              <span style="font-size:13px;color:var(--muted)">Portfolio URL</span>
+              <a href="index.html" target="_blank" style="font-size:13px;font-weight:700;color:var(--cyan)">index.html ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="s-card">
+          <h3>Session</h3>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:16px">Your session is stored in browser localStorage and cleared on sign out.</p>
+          <button class="logout-btn" id="logout-btn-2" style="padding:12px 20px;font-size:13px">Sign Out of Admin Panel</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script>
+// ── AUTH ──────────────────────────────────────────────
+const ADMIN_EMAIL    = 'uddhavthakur2411@gmail.com';
+const ADMIN_PASSWORD = 'uddhavtiwari03';
+const SESSION_KEY    = 'uddhav_admin_session';
+
+function isLoggedIn() {
+  try { return sessionStorage.getItem(SESSION_KEY) === 'true'; }
+  catch(e) { return false; }
+}
+function login(email, pass) {
+  const e2 = email.trim().toLowerCase();
+  const p2 = pass.trim();
+  return e2 === ADMIN_EMAIL && p2 === ADMIN_PASSWORD;
+}
+function logout() {
+  try { sessionStorage.removeItem(SESSION_KEY); } catch(e){}
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('login-page').style.display = 'flex';
+}
+
+// ── RENDER ────────────────────────────────────────────
+function showDashboard() {
+  document.getElementById('login-page').style.display  = 'none';
+  document.getElementById('dashboard').style.display   = 'flex';
+}
+
+// ── LOGIN FORM ────────────────────────────────────────
+document.getElementById('login-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const email = document.getElementById('email').value || '';
+  const pass  = document.getElementById('password').value || '';
+  const err   = document.getElementById('login-err');
+  if (login(email, pass)) {
+    try { sessionStorage.setItem(SESSION_KEY, 'true'); } catch(ex){}
+    err.classList.remove('show');
+    showDashboard();
+  } else {
+    err.textContent = 'Incorrect email or password. Got: ' + email.trim() + ' / ' + pass.trim().length + ' chars';
+    err.classList.add('show');
+    document.getElementById('password').value = '';
+  }
+});
+
+// ── LOGOUT ────────────────────────────────────────────
+document.getElementById('logout-btn').addEventListener('click', logout);
+document.getElementById('logout-btn-2').addEventListener('click', logout);
+
+// ── NAV ───────────────────────────────────────────────
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    item.classList.add('active');
+    const pageId = 'page-' + item.dataset.page;
+    const page = document.getElementById(pageId);
+    if (page) page.classList.add('active');
+  });
+});
+
+// ── INQUIRIES ─────────────────────────────────────────
+const INQ_KEY = 'uddhav_inquiries';
+function loadInquiries() {
+  try { return JSON.parse(localStorage.getItem(INQ_KEY)) || []; }
+  catch { return []; }
+}
+function saveInquiries(data) {
+  localStorage.setItem(INQ_KEY, JSON.stringify(data));
+}
+function statusBadge(s) {
+  const map = { 'New':'yellow','In Discussion':'purple','In Progress':'yellow','Completed':'green','Declined':'red' };
+  return `<span class="badge ${map[s]||'yellow'}">${s}</span>`;
+}
+function renderInquiries() {
+  const list = loadInquiries();
+  const tbody = document.getElementById('inquiry-table-body');
+  if (!list.length) {
+    tbody.innerHTML = '<tr><td colspan="7"><div class="empty"><div class="e-icon">📋</div>No inquiries logged yet. Add one above.</div></td></tr>';
+    return;
+  }
+  tbody.innerHTML = list.map((inq, i) => `
+    <tr>
+      <td><strong>${inq.name}</strong></td>
+      <td style="color:var(--muted)">${inq.contact}</td>
+      <td>${inq.type}</td>
+      <td>${statusBadge(inq.status)}</td>
+      <td style="color:var(--muted);max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${inq.notes||'—'}</td>
+      <td style="color:var(--muted)">${inq.date}</td>
+      <td>
+        <button class="action-btn del" onclick="deleteInquiry(${i})">Remove</button>
+      </td>
+    </tr>
+  `).join('');
+}
+function deleteInquiry(i) {
+  const list = loadInquiries();
+  list.splice(i, 1);
+  saveInquiries(list);
+  renderInquiries();
+}
+document.getElementById('inquiry-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const name    = document.getElementById('inq-name').value.trim();
+  const contact = document.getElementById('inq-contact').value.trim();
+  const type    = document.getElementById('inq-type').value.trim();
+  const status  = document.getElementById('inq-status').value;
+  const notes   = document.getElementById('inq-notes').value.trim();
+  if (!name) return;
+  const list = loadInquiries();
+  list.unshift({ name, contact, type, status, notes, date: new Date().toLocaleDateString('en-IN') });
+  saveInquiries(list);
+  renderInquiries();
+  e.target.reset();
+});
+
+// ── INIT ──────────────────────────────────────────────
+if (isLoggedIn()) {
+  showDashboard();
+} else {
+  document.getElementById('login-page').style.display = 'flex';
+}
+renderInquiries();
+</script>
+</body>
+</html>
